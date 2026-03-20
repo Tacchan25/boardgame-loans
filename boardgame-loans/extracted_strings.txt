@@ -1,0 +1,121 @@
+﻿Permission denied.
+Game title and loan date are required.
+Error: This game copy is already currently checked out.
+Double Checkout Conflict
+BoardGame Loans
+Loans List
+New Loan
+Shortcode Help
+Settings
+New loan (Copy)
+Edit loan
+New loan
+Loan saved successfully!
+Loan updated successfully!
+Source
+Reference (BGG/TablePress ID)
+Search
+Game Title
+Status
+Open
+Waitlist
+Available for Pickup
+Returned
+Internal Code
+Optional internal code for the game.
+Copy Number
+Borrower type
+Borrower user
+-- Select a user (TODO) --
+Borrower name
+In case the loan is not linked to a registered user.
+Loan date
+Due date
+Notes
+Save loan
+Please enter a reference ID before searching.
+Shortcodes Documentation
+You can embed the plugin tables on any public page using Shortcodes.
+How to add the table to a Page or Post
+Go to the Pages or Posts section of your WordPress and create a new page.
+If you use the new Block Editor (Gutenberg), click the [+] button to add a new block.
+Search for the block named "Shortcode" and click it to insert it into your page.
+Inside the text field of the block that appears, write exactly one of the shortcodes explained below.
+Save or Update the page. Done! The site will replace that block with the actual table.
+Note: if you use the old Classic Editor, you can just paste the shortcode directly in the middle of the rest of the text.
+1. Public Loans List
+To display the standard list of games currently borrowed by members, insert this shortcode in a page:
+Optional Parameters for
+By default, the table shows the game title and the expected return date. You can customize the columns by adding parameters, for example:
+Default: false
+Default: true
+Default: open
+2. Waitlist Queue Tab
+To display a dedicated page showing only the waitlist requests and the games ready for pickup, use this specific shortcode:
+By default, this shortcode is pre-configured to only show the Game Title, the Borrower Name, and the Wait Status. Dates are hidden automatically because the games have not been issued yet.
+Search game or code...
+Search borrower...
+All Statuses
+Overdue
+Waitlist/Queue
+Filter
+Reset
+Loan extended successfully!
+ATTENTION: The returned game is WAITLISTED!
+This game must be kept safely under the counter. It is reserved for: %s.
+Loan successfully issued to waitlisted borrower!
+Loan record entirely deleted.
+Loan closed and marked as returned!
+New loan saved successfully!
+ID
+Game
+Borrower
+Loan Date
+Due Date
+Return Date
+Actions
+Copy n. %d
+Waitlisted
+In progress
+Edit
+Copy
+Issue Loan
+Are you sure you want to cancel this waitlisted item and return it to stock?
+Cancel
+Extend by %d days
+Are you sure you want to mark this loan as returned?
+Close
+Are you sure you want to hard delete this record?
+Delete
+No active loans at the moment.
+Settings saved successfully.
+Loan Form Mode
+Simple Mode (Title, Code, Name, Dates, Notes)
+Advanced Mode (BGG/TablePress reference, User linkage, etc)
+List Default Order By
+List Default Order Direction
+Descending
+Ascending
+Date display format
+European (dd/mm/yyyy)
+USA (yyyy-mm-dd)
+TablePress Table ID
+ID of the TablePress table holding games (e.g. 2).
+TablePress Game Title Column
+Exact Name of the column containing the boardgame title.
+Extend Loan Days
+Number of days to automatically add to the due date when using the "Extend" button.
+Enable Copy Number
+No (Hidden)
+Yes (Show 1-10 dropdown)
+Useful for tracking multiple identical copies of the same game.
+Enable Waitlist Logic
+No (Disabled)
+Yes (Enabled)
+Turns the Waitlist complex logics and Status options ON or OFF.
+Waitlist Uniqueness Mode
+Game Title + Copy Number
+How the system identifies a unique physical box for waitlist tracking.
+Save Settings
+No loans to show at the moment.
+Estimated Due Date

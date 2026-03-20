@@ -1,0 +1,385 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BoardGame Loans 1.0\n"
+"POT-Creation-Date: 2026-03-20 22:30+0100\n"
+"PO-Revision-Date: 2026-03-20 22:30+0100\n"
+"Last-Translator: Antigravity\n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Manual\n"
+
+msgid "Permission denied."
+msgstr "Permesso negato."
+
+msgid "Game title and loan date are required."
+msgstr "Titolo gioco e data prestito sono obbligatori."
+
+msgid "Error: This game copy is already currently checked out."
+msgstr "Errore: Questa copia del gioco è già attualmente in prestito."
+
+msgid "Double Checkout Conflict"
+msgstr "Conflitto Prestito Doppio"
+
+msgid "BoardGame Loans"
+msgstr "Prestiti Giochi"
+
+msgid "Loans List"
+msgstr "Lista Prestiti"
+
+msgid "New Loan"
+msgstr "Nuovo Prestito"
+
+msgid "Shortcode Help"
+msgstr "Istruzioni"
+
+msgid "Settings"
+msgstr "Impostazioni"
+
+msgid "New loan (Copy)"
+msgstr "Nuovo prestito (Copia)"
+
+msgid "Edit loan"
+msgstr "Modifica prestito"
+
+msgid "New loan"
+msgstr "Nuovo prestito"
+
+msgid "Loan saved successfully!"
+msgstr "Prestito salvato con successo!"
+
+msgid "Loan updated successfully!"
+msgstr "Prestito aggiornato con successo!"
+
+msgid "Source"
+msgstr "Origine"
+
+msgid "Reference (BGG/TablePress ID)"
+msgstr "Riferimento (BGG/TablePress ID)"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Game Title"
+msgstr "Titolo Gioco"
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Open"
+msgstr "Aperto"
+
+msgid "Waitlist"
+msgstr "In Lista d'Attesa"
+
+msgid "Available for Pickup"
+msgstr "Pronto per il Ritiro"
+
+msgid "Returned"
+msgstr "Rientrato"
+
+msgid "Internal Code"
+msgstr "Codice Interno"
+
+msgid "Optional internal code for the game."
+msgstr "Codice interno opzionale per il gioco."
+
+msgid "Copy Number"
+msgstr "Numero Copia"
+
+msgid "Borrower type"
+msgstr "Tipo richiedente"
+
+msgid "Borrower user"
+msgstr "Utente richiedente"
+
+msgid "-- Select a user (TODO) --"
+msgstr "-- Seleziona un utente (TODO) --"
+
+msgid "Borrower name"
+msgstr "Nome richiedente"
+
+msgid "In case the loan is not linked to a registered user."
+msgstr "Nel caso in cui il prestito non sia collegato a un utente."
+
+msgid "Loan date"
+msgstr "Data prestito"
+
+msgid "Due date"
+msgstr "Scadenza stimata"
+
+msgid "Notes"
+msgstr "Note"
+
+msgid "Save loan"
+msgstr "Salva prestito"
+
+msgid "Please enter a reference ID before searching."
+msgstr "Inserisci un ID di riferimento prima di cercare."
+
+msgid "Shortcodes Documentation"
+msgstr "Documentazione Shortcode"
+
+msgid "You can embed the plugin tables on any public page using Shortcodes."
+msgstr "Puoi incorporare le tabelle usando gli Shortcode nelle pagine del sito."
+
+msgid "How to add the table to a Page or Post"
+msgstr "Come aggiungere le tabelle in una Pagina o Articolo"
+
+msgid "Go to the Pages or Posts section of your WordPress and create a new page."
+msgstr "Vai nella sezione Pagine o Articoli di WordPress e crea una nuova pagina."
+
+msgid "If you use the new Block Editor (Gutenberg), click the [+] button to add a new block."
+msgstr "Se usi l'Editor a Blocchi (Gutenberg), clicca il tasto [+] per aggiungere un blocco."
+
+msgid "Search for the block named \"Shortcode\" and click it to insert it into your page."
+msgstr "Cerca il blocco chiamato \"Shortcode\" e cliccalo."
+
+msgid "Inside the text field of the block that appears, write exactly one of the shortcodes explained below."
+msgstr "All'interno del campo di testo scrivi esattamente uno degli shortcode spiegati qui sotto."
+
+msgid "Save or Update the page. Done! The site will replace that block with the actual table."
+msgstr "Salva o Aggiorna la pagina. Fatto! Il sito sostituirà quel blocco con la vera tabella."
+
+msgid "Note: if you use the old Classic Editor, you can just paste the shortcode directly in the middle of the rest of the text."
+msgstr "Nota: se usi il vecchio Editor puoi incollare lo shortcode in mezzo al resto del testo."
+
+msgid "1. Public Loans List"
+msgstr "1. Lista dei Prestiti Pubblica"
+
+msgid "To display the standard list of games currently borrowed by members, insert this shortcode in a page:"
+msgstr "Per visualizzare l'elenco dei giochi attualmente in prestito, usa questo shortcode:"
+
+msgid "Optional Parameters for"
+msgstr "Parametri Opzionali per"
+
+msgid "By default, the table shows the game title and the expected return date. You can customize the columns by adding parameters, for example:"
+msgstr "Di default la tabella mostra Titolo e Scadenza. Puoi personalizzare le colonne così:"
+
+msgid "Default: false"
+msgstr "Predefinito: Falso"
+
+msgid "Default: true"
+msgstr "Predefinito: Vero"
+
+msgid "Default: open"
+msgstr "Predefinito: Aperto"
+
+msgid "2. Waitlist Queue Tab"
+msgstr "2. Tabella della Lista di Attesa"
+
+msgid "To display a dedicated page showing only the waitlist requests and the games ready for pickup, use this specific shortcode:"
+msgstr "Per mostrare esclusivamente le richieste in coda e i giochi messi da parte, usa questo shortcode:"
+
+msgid "By default, this shortcode is pre-configured to only show the Game Title, the Borrower Name, and the Wait Status. Dates are hidden automatically because the games have not been issued yet."
+msgstr "Questo shortcode è preconfigurato per forzare Titolo, Richiedente e Stato. Le date sono state nascoste di proposito."
+
+msgid "Search game or code..."
+msgstr "Cerca gioco o codice..."
+
+msgid "Search borrower..."
+msgstr "Cerca utente..."
+
+msgid "All Statuses"
+msgstr "Tutti gli Stati"
+
+msgid "Overdue"
+msgstr "In ritardo (Scaduti)"
+
+msgid "Waitlist/Queue"
+msgstr "Lista d'Attesa / Coda"
+
+msgid "Filter"
+msgstr "Filtra"
+
+msgid "Reset"
+msgstr "Resetta"
+
+msgid "Loan extended successfully!"
+msgstr "Prestito esteso con successo!"
+
+msgid "ATTENTION: The returned game is WAITLISTED!"
+msgstr "ATTENZIONE: Il gioco rientrato è PRENOTATO in attesa!"
+
+msgid "This game must be kept safely under the counter. It is reserved for: %s."
+msgstr "Questo gioco deve essere conservato sotto il bancone. È riservato a: %s."
+
+msgid "Loan successfully issued to waitlisted borrower!"
+msgstr "Prestito in attesa erogato con successo!"
+
+msgid "Loan record entirely deleted."
+msgstr "Record del prestito completamente eliminato."
+
+msgid "Loan closed and marked as returned!"
+msgstr "Prestito chiuso e segnato come rientrato!"
+
+msgid "New loan saved successfully!"
+msgstr "Nuovo prestito salvato con successo!"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Game"
+msgstr "Gioco"
+
+msgid "Borrower"
+msgstr "Utente/Nome"
+
+msgid "Loan Date"
+msgstr "Data Prestito"
+
+msgid "Due Date"
+msgstr "Scadenza stimata"
+
+msgid "Return Date"
+msgstr "Data Riconsegna"
+
+msgid "Actions"
+msgstr "Azioni"
+
+msgid "Copy n. %d"
+msgstr "Copia n. %d"
+
+msgid "In progress"
+msgstr "In corso"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Copy"
+msgstr "Copia"
+
+msgid "Issue Loan"
+msgstr "Eroga Prestito"
+
+msgid "Are you sure you want to cancel this waitlisted item and return it to stock?"
+msgstr "Annullare questa richiesta in lista di attesa e rimettere a stock questo gioco?"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Extend by %d days"
+msgstr "Estendi di %d giorni"
+
+msgid "Are you sure you want to mark this loan as returned?"
+msgstr "Sei sicuro di voler segnare questo gioco come rientrato?"
+
+msgid "Close"
+msgstr "Rientrato"
+
+msgid "Are you sure you want to hard delete this record?"
+msgstr "Eliminare definitivamente questo record dal database?"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "No active loans at the moment."
+msgstr "Nessun prestito attivo al momento."
+
+msgid "Settings saved successfully."
+msgstr "Impostazioni salvate."
+
+msgid "Loan Form Mode"
+msgstr "Modalità Modulo Prestiti"
+
+msgid "Simple Mode (Title, Code, Name, Dates, Notes)"
+msgstr "Modalità Semplice (Titolo, Codice, Nome, Date, Note)"
+
+msgid "Advanced Mode (BGG/TablePress reference, User linkage, etc)"
+msgstr "Modalità Avanzata (Rif. BGG/TablePress, Link utente, ecc)"
+
+msgid "List Default Order By"
+msgstr "Ordinamento di Default Lista"
+
+msgid "List Default Order Direction"
+msgstr "Direzione Ordinamento Lista"
+
+msgid "Descending"
+msgstr "Decrescente"
+
+msgid "Ascending"
+msgstr "Crescente"
+
+msgid "Date display format"
+msgstr "Formato visualizzazione date"
+
+msgid "European (dd/mm/yyyy)"
+msgstr "Europeo (gg/mm/aaaa)"
+
+msgid "USA (yyyy-mm-dd)"
+msgstr "USA (aaaa-mm-gg)"
+
+msgid "TablePress Table ID"
+msgstr "ID Tabella TablePress"
+
+msgid "ID of the TablePress table holding games (e.g. 2)."
+msgstr "L'ID della tabella di TablePress contenente l'elenco giochi."
+
+msgid "TablePress Game Title Column"
+msgstr "Colonna TablePress Titolo Gioco"
+
+msgid "Exact Name of the column containing the boardgame title."
+msgstr "Il nome esatto dell'intestazione colonna contenente il titolo del gioco."
+
+msgid "Extend Loan Days"
+msgstr "Giorni di Estensione Prestito"
+
+msgid "Number of days to automatically add to the due date when using the \"Extend\" button."
+msgstr "Numero di giorni da aggiungere automaticamente alla scadenza premendo Estendi."
+
+msgid "Enable Copy Number"
+msgstr "Abilita Numeri di Copia"
+
+msgid "No (Hidden)"
+msgstr "No (Nascosto)"
+
+msgid "Yes (Show 1-10 dropdown)"
+msgstr "Sì (Mostra tendina 1-10)"
+
+msgid "Useful for tracking multiple identical copies of the same game."
+msgstr "Utile per tracciare copie identiche dello stesso gioco."
+
+msgid "Enable Waitlist Logic"
+msgstr "Abilita Logica Lista d'Attesa"
+
+msgid "No (Disabled)"
+msgstr "No (Disabilitato)"
+
+msgid "Yes (Enabled)"
+msgstr "Sì (Abilitato)"
+
+msgid "Turns the Waitlist complex logics and Status options ON or OFF."
+msgstr "Accende o spegne l'intera logica della Lista di Attesa."
+
+msgid "Waitlist Uniqueness Mode"
+msgstr "Modalità Unicità per la Waitlist"
+
+msgid "Game Title + Copy Number"
+msgstr "Titolo del Gioco + Numero Copia"
+
+msgid "How the system identifies a unique physical box for waitlist tracking."
+msgstr "Come il sistema identifica una scatola fisica unica per la lista d'attesa."
+
+msgid "Save Settings"
+msgstr "Salva Impostazioni"
+
+msgid "No loans to show at the moment."
+msgstr "Nessun prestito da mostrare al momento."
+
+msgid "Estimated Due Date"
+msgstr "Scadenza Stimata"
+
+msgid "Double checkout conflict: game already issued."
+msgstr "Conflitto di doppio checkout: copià già emessa."
+
+msgid "Waitlisted"
+msgstr "In Lista d'Attesa"
+
+msgid "Available for Pickup"
+msgstr "Pronto per il Ritiro (Messo da parte)"
+
+msgid "No loans to show at the moment."
+msgstr "Nessun movimento da mostrare al momento."
