@@ -98,6 +98,7 @@ class BoardGame_Loans_Public
             $html .= '<tr>';
             $title_html = esc_html($loan->game_title);
             if ($enable_copy_number === 'true' && isset($loan->copy_number) && $loan->copy_number > 1) {
+                /* translators: %d: copy number */
                 $title_html .= ' (' . esc_html(sprintf(__('Copy n. %d', 'boardgame-loans'), $loan->copy_number)) . ')';
             }
             $html .= '<td style="border-bottom: 1px solid #eee; padding: 8px;"><strong>' . $title_html . '</strong></td>';

@@ -107,7 +107,10 @@ $base_url = admin_url('admin.php?page=boardgame-loans');
         <?php elseif ($_GET['message'] === 'waitlist_triggered'): ?>
             <div class="notice notice-error is-dismissible" style="padding: 15px; border-left-color: #d63638; background: #fcf0f1;">
                 <p><strong style="font-size: 16px;">⚠️ <?php esc_html_e('ATTENTION: The returned game is WAITLISTED!', 'boardgame-loans'); ?></strong></p>
-                <p><?php printf(esc_html__('This game must be kept safely under the counter. It is reserved for: %s.', 'boardgame-loans'), '<strong>' . esc_html($_GET['borrower']) . '</strong>'); ?></p>
+                <p><?php 
+                /* translators: %s: borrower name */
+                printf(esc_html__('This game must be kept safely under the counter. It is reserved for: %s.', 'boardgame-loans'), '<strong>' . esc_html($_GET['borrower']) . '</strong>'); 
+                ?></p>
             </div>
         <?php elseif ($_GET['message'] === 'issued'): ?>
             <div class="notice notice-success is-dismissible">
@@ -148,9 +151,9 @@ $base_url = admin_url('admin.php?page=boardgame-loans');
                 ];
                 foreach ($headers as $col => $label) {
                     $style = '';
-                    if ($col === 'id') $style = ' style="width: 60px;"';
-                    if ($col === 'game_title') $style = ' style="width: 30%;"';
-                    if ($col === 'status') $style = ' style="width: 80px; text-align: center;"';
+                    if ($col === 'id') $style = 'width: 60px;';
+                    if ($col === 'game_title') $style = 'width: 30%;';
+                    if ($col === 'status') $style = 'width: 80px; text-align: center;';
 
                     if (in_array($col, $allowed_orderby)) {
                         $sort_order = ($orderby === $col) ? $next_order : 'desc';
@@ -159,9 +162,13 @@ $base_url = admin_url('admin.php?page=boardgame-loans');
                         if ($orderby === $col) {
                             $icon = $order === 'ASC' ? ' &uarr;' : ' &darr;';
                         }
-                        echo "<th{$style}><a href=\"$url\">" . esc_html($label) . "$icon</a></th>";
+                        ?>
+                        <th style="<?php echo esc_attr($style); ?>"><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($label) . wp_kses_post($icon); ?></a></th>
+                        <?php
                     } else {
-                        echo "<th{$style}>" . esc_html($label) . "</th>";
+                        ?>
+                        <th style="<?php echo esc_attr($style); ?>"><?php echo esc_html($label); ?></th>
+                        <?php
                     }
                 }
                 ?>
@@ -177,6 +184,7 @@ $base_url = admin_url('admin.php?page=boardgame-loans');
                             <strong><?php 
                                 echo esc_html($loan->game_title); 
                                 if ($enable_copy_number === 'true' && isset($loan->copy_number) && $loan->copy_number > 1) {
+                                    /* translators: %d: copy number */
                                     echo esc_html(' (' . sprintf(__('Copy n. %d', 'boardgame-loans'), $loan->copy_number) . ')');
                                 }
                             ?></strong><br>
@@ -214,6 +222,7 @@ $base_url = admin_url('admin.php?page=boardgame-loans');
                                 <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=boardgame-loans&action=issue_loan&loan_id=' . $loan->id), 'issue_loan_' . $loan->id)); ?>" class="button button-small" title="<?php esc_attr_e('Issue Loan', 'boardgame-loans'); ?>" style="border-color: #2271b1; color: #2271b1;"><span class="dashicons dashicons-yes" style="line-height: 1.5;"></span></a>
                                 <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=boardgame-loans&action=close_loan&loan_id=' . $loan->id), 'close_loan_' . $loan->id)); ?>" class="button button-small" onclick="return confirm('<?php esc_attr_e('Are you sure you want to cancel this waitlisted item and return it to stock?', 'boardgame-loans'); ?>');" title="<?php esc_attr_e('Cancel', 'boardgame-loans'); ?>"><span class="dashicons dashicons-no" style="line-height: 1.5; color: #d63638;"></span></a>
                             <?php elseif ($loan->status === 'open'): ?>
+                                <?php /* translators: %d: extension days */ ?>
                                 <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=boardgame-loans&action=extend_loan&loan_id=' . $loan->id), 'extend_loan_' . $loan->id)); ?>" class="button button-small" title="<?php echo esc_attr(sprintf(__('Extend by %d days', 'boardgame-loans'), $extend_days_setting)); ?>"><span class="dashicons dashicons-clock" style="line-height: 1.5;"></span></a>
                                 <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin.php?page=boardgame-loans&action=close_loan&loan_id=' . $loan->id), 'close_loan_' . $loan->id)); ?>" class="button button-small" onclick="return confirm('<?php esc_attr_e('Are you sure you want to mark this loan as returned?', 'boardgame-loans'); ?>');" title="<?php esc_attr_e('Close', 'boardgame-loans'); ?>"><span class="dashicons dashicons-yes" style="line-height: 1.5; color: #46b450;"></span></a>
                             <?php endif; ?>

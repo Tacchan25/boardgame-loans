@@ -49,11 +49,10 @@ class BoardGame_Loans_Admin
                 if ($enable_waitlist === 'true') {
                     $waitlist_unique = get_option('bg_loans_waitlist_unique', 'title_copy');
                     if ($waitlist_unique === 'internal_code' && !empty($closed_loan->internal_code)) {
-                        $waitlist_query = $wpdb->prepare("SELECT id, borrower_name FROM $table_name WHERE status = 'waitlist' AND internal_code = %s ORDER BY loan_date ASC LIMIT 1", $closed_loan->internal_code);
+                        $waitlisted = $wpdb->get_row($wpdb->prepare("SELECT id, borrower_name FROM $table_name WHERE status = 'waitlist' AND internal_code = %s ORDER BY loan_date ASC LIMIT 1", $closed_loan->internal_code));
                     } else {
-                        $waitlist_query = $wpdb->prepare("SELECT id, borrower_name FROM $table_name WHERE status = 'waitlist' AND game_title = %s AND copy_number = %d ORDER BY loan_date ASC LIMIT 1", $closed_loan->game_title, $closed_loan->copy_number);
+                        $waitlisted = $wpdb->get_row($wpdb->prepare("SELECT id, borrower_name FROM $table_name WHERE status = 'waitlist' AND game_title = %s AND copy_number = %d ORDER BY loan_date ASC LIMIT 1", $closed_loan->game_title, $closed_loan->copy_number));
                     }
-                    $waitlisted = $wpdb->get_row($waitlist_query);
 
                     if ($waitlisted) {
                         $expire_date = gmdate('Y-m-d H:i:s', strtotime("+3 days"));
@@ -82,7 +81,7 @@ class BoardGame_Loans_Admin
                 }
                 
                 $extend_days_setting = intval(get_option('bg_loans_extend_days', 7));
-                $new_due_date = date('Y-m-d', strtotime("+$extend_days_setting days", $base_timestamp));
+                $new_due_date = gmdate('Y-m-d', strtotime("+$extend_days_setting days", $base_timestamp));
                 
                 $wpdb->update(
                     $table_name,
@@ -103,7 +102,7 @@ class BoardGame_Loans_Admin
             $loan_id = intval($_GET['loan_id']);
 
             $loan_duration = intval(get_option('bg_loans_default_duration', 7));
-            $new_due_date = date('Y-m-d H:i:s', strtotime("+$loan_duration days"));
+            $new_due_date = gmdate('Y-m-d H:i:s', strtotime("+$loan_duration days"));
 
             $wpdb->update(
                 $table_name,
@@ -122,7 +121,7 @@ class BoardGame_Loans_Admin
 
             // Verifica di sicurezza sul Nonce
             if (!isset($_POST['bg_loans_nonce']) || !wp_verify_nonce($_POST['bg_loans_nonce'], 'save_new_loan_action')) {
-                wp_die(__('Permission denied.', 'boardgame-loans'));
+                wp_die(esc_html__('Permission denied.', 'boardgame-loans'));
             }
 
             // Preparazione dei dati puliti
@@ -143,7 +142,7 @@ class BoardGame_Loans_Admin
 
             // Controllo base dei campi obbligatori
             if (empty($data['game_title']) || empty($data['loan_date'])) {
-                wp_die(__('Game title and loan date are required.', 'boardgame-loans'));
+                wp_die(esc_html__('Game title and loan date are required.', 'boardgame-loans'));
             }
 
             // Constraint: prevent duplicate active loan
@@ -158,7 +157,7 @@ class BoardGame_Loans_Admin
                 }
                 
                 if ($conflict) {
-                    wp_die(__('Error: This game copy is already currently checked out.', 'boardgame-loans'), __('Double Checkout Conflict', 'boardgame-loans'), array('back_link' => true));
+                    wp_die(esc_html__('Error: This game copy is already currently checked out.', 'boardgame-loans'), esc_html__('Double Checkout Conflict', 'boardgame-loans'), array('back_link' => true));
                 }
             }
 

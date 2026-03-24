@@ -47,13 +47,6 @@ class BoardGame_Loans
             update_option('bg_loans_db_version', '1.1');
         }
 
-        // Auto-compile MO file if missing (useful for dev/distribution without CLI)
-        $mofile = dirname(__FILE__) . '/languages/boardgame-loans-it_IT.mo';
-        $pofile = dirname(__FILE__) . '/languages/boardgame-loans-it_IT.po';
-        if (!file_exists($mofile) && file_exists($pofile)) {
-            require_once dirname(__FILE__) . '/compile_mo.php';
-            bg_loans_compile_mo($pofile, $mofile);
-        }
 
         $this->load_dependencies();
 
