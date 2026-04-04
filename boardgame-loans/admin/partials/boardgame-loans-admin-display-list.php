@@ -135,8 +135,18 @@ $base_url = admin_url('admin.php?page=boardgame-loans');
         <?php endif; ?>
     <?php endif; ?>
 
-    <div style="overflow-x: auto; max-width: 100%; border: 1px solid #c3c4c7; margin-top: 10px;">
-        <table class="wp-list-table widefat fixed striped" style="min-width: 1000px; border: none; margin: 0;">
+    <style>
+        .bg-loans-admin-table-wrap { overflow-x: auto; max-width: 100%; border: 1px solid #c3c4c7; margin-top: 10px; }
+        .bg-loans-admin-table-wrap table.wp-list-table { display: table !important; min-width: 1000px; border: none; margin: 0; }
+        .bg-loans-admin-table-wrap table.wp-list-table thead { display: table-header-group !important; }
+        .bg-loans-admin-table-wrap table.wp-list-table tbody { display: table-row-group !important; }
+        .bg-loans-admin-table-wrap table.wp-list-table tr { display: table-row !important; }
+        .bg-loans-admin-table-wrap table.wp-list-table th,
+        .bg-loans-admin-table-wrap table.wp-list-table td { display: table-cell !important; }
+        .bg-loans-admin-table-wrap table.wp-list-table td::before { display: none !important; content: none !important; }
+    </style>
+    <div class="bg-loans-admin-table-wrap">
+        <table class="wp-list-table widefat fixed striped" style="border: none; margin: 0;">
         <thead>
             <tr>
                 <?php

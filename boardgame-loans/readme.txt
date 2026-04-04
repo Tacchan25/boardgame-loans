@@ -3,7 +3,7 @@ Contributors: Tacchan25
 Tags: boardgame, loans, rental, library, membership, ludotheque
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,12 @@ When returning a game, the plugin checks if there is someone in the Waitlist for
 3. screenshot-3.png == The Public Shortcode table showing current borrowed games.
 
 == Changelog ==
+
+= 1.0.2 =
+* Fix: mobile layout bug where the table header was overlapping data rows in the admin loans list due to WordPress admin responsive CSS being applied to the table.
+
+= 1.0.1 =
+* Fix: mobile layout bug where the table header was overlapping data rows in the `[bg_loans_list]` shortcode due to theme CSS stacking styles being applied to the table.
 
 = 1.0.0 =
 * Initial public release! Features complete loan management, UI improvements, shortcodes, and waitlist tracking.
