@@ -11,6 +11,14 @@ class BoardGame_Loans_Public
         // Shortcode registration
         add_shortcode('bg_loans_list', array($this, 'render_bg_loans_list_shortcode'));
         add_shortcode('bg_loans_waitlist', array($this, 'render_bg_loans_waitlist_shortcode'));
+
+        // Enqueue styles
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_styles'));
+    }
+
+    public function enqueue_styles()
+    {
+        wp_enqueue_style('boardgame-loans-public', plugin_dir_url(dirname(__FILE__)) . 'public/css/boardgame-loans-public.css', array(), '1.0.2');
     }
 
     public function render_bg_loans_waitlist_shortcode($atts)
@@ -67,20 +75,8 @@ class BoardGame_Loans_Public
 
         $extra_class = !empty($a['css_class']) ? ' ' . esc_attr($a['css_class']) : '';
 
-        // Scoped CSS to prevent theme mobile styles from stacking/repeating the thead
-        $html  = '<style>';
-        $html .= '.bg-loans-table-responsive { overflow-x: auto; max-width: 100%; }';
-        $html .= '.bg-loans-table-responsive table.bg-loans-public-table { display: table !important; width: 100%; text-align: left; border-collapse: collapse; min-width: 600px; }';
-        $html .= '.bg-loans-table-responsive table.bg-loans-public-table thead { display: table-header-group !important; }';
-        $html .= '.bg-loans-table-responsive table.bg-loans-public-table tbody { display: table-row-group !important; }';
-        $html .= '.bg-loans-table-responsive table.bg-loans-public-table tr { display: table-row !important; }';
-        $html .= '.bg-loans-table-responsive table.bg-loans-public-table th,';
-        $html .= '.bg-loans-table-responsive table.bg-loans-public-table td { display: table-cell !important; }';
-        $html .= '.bg-loans-table-responsive table.bg-loans-public-table td::before { display: none !important; content: none !important; }';
-        $html .= '</style>';
-
         // Responsive container for mobile screens
-        $html .= '<div class="bg-loans-table-responsive">';
+        $html = '<div class="bg-loans-table-responsive">';
         
         // Output table
         $html .= '<table class="bg-loans-public-table' . $extra_class . '" style="width: 100%; text-align: left; border-collapse: collapse; min-width: 600px;">';

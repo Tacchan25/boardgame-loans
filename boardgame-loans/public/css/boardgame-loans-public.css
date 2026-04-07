@@ -1,0 +1,34 @@
+.bg-loans-table-responsive {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.bg-loans-table-responsive table.bg-loans-public-table {
+    display: table !important;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.bg-loans-table-responsive table.bg-loans-public-table thead {
+    display: table-header-group !important;
+}
+
+.bg-loans-table-responsive table.bg-loans-public-table tbody {
+    display: table-row-group !important;
+}
+
+.bg-loans-table-responsive table.bg-loans-public-table tr {
+    display: table-row !important;
+}
+
+.bg-loans-table-responsive table.bg-loans-public-table th,
+.bg-loans-table-responsive table.bg-loans-public-table td {
+    display: table-cell !important;
+}
+
+.bg-loans-table-responsive table.bg-loans-public-table td::before {
+    display: none !important;
+    content: none !important;
+}

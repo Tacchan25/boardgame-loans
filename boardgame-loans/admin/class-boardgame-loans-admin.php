@@ -13,6 +13,45 @@ class BoardGame_Loans_Admin
         add_action('admin_init', array($this, 'handle_new_loan_submission'));
         add_action('wp_ajax_bg_loans_change_status', array($this, 'ajax_change_status'));
         add_action('wp_ajax_bg_loans_search_tablepress', array($this, 'ajax_search_tablepress'));
+
+        // Enqueue Assets
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
+    }
+
+    public function enqueue_admin_assets($hook)
+    {
+        // Only load on plugin pages
+        if (strpos($hook, 'boardgame-loans') === false) {
+            return;
+        }
+
+        // CSS
+        wp_enqueue_style('boardgame-loans-admin', plugin_dir_url(dirname(__FILE__)) . 'admin/css/boardgame-loans-admin.css', array(), '1.0.2');
+
+        // JS: Main Admin (Form logic)
+        wp_enqueue_script('boardgame-loans-admin', plugin_dir_url(dirname(__FILE__)) . 'admin/js/boardgame-loans-admin.js', array(), '1.0.2', true);
+        
+        // Pass translations and ajaxurl
+        wp_localize_script('boardgame-loans-admin', 'bgLoansAdmin', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'i18n' => array(
+                'enterQuery' => __('Please enter a reference ID or title before searching.', 'boardgame-loans'),
+                'onlyTablePress' => __('Advanced search is only implemented for TablePress.', 'boardgame-loans'),
+                'searching' => __('Searching...', 'boardgame-loans'),
+                'search' => __('Search', 'boardgame-loans'),
+                'tpError' => __('TablePress Search Error:', 'boardgame-loans'),
+                'unknownError' => __('Unknown error. Check the network tab.', 'boardgame-loans'),
+                'noResults' => __('No results found.', 'boardgame-loans'),
+                'selectGame' => __('-- Select a game --', 'boardgame-loans'),
+                'apply' => __('Apply', 'boardgame-loans'),
+                'serverError' => __('Error contacting server.', 'boardgame-loans')
+            )
+        ));
+
+        // JS: Settings (Tabs logic)
+        if ($hook === 'boardgame-loans_page_boardgame-loans-settings') {
+            wp_enqueue_script('boardgame-loans-settings', plugin_dir_url(dirname(__FILE__)) . 'admin/js/boardgame-loans-settings.js', array(), '1.0.2', true);
+        }
     }
 
     public function handle_new_loan_submission()
