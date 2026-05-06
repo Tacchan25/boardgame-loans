@@ -3,7 +3,7 @@
  * Plugin Name:       BoardGame Loans
  * Plugin URI:        https://github.com/Tacchan25/boardgame-loans
  * Description:       A lightweight solution to manage board game loans, rentals, and waitlists.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Andrea "Tacchan" Sartori
  * Author URI:        https://github.com/Tacchan25
  * License:           GPLv2 or later
@@ -64,7 +64,7 @@ class BoardGame_Loans
 
     public function load_textdomain()
     {
-        // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
+        // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Standard WordPress function for text domain loading.
         load_plugin_textdomain('boardgame-loans', false, dirname(plugin_basename(__FILE__)) . '/languages');
     }
 

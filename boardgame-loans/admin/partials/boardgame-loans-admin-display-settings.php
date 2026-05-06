@@ -5,15 +5,23 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// phpcs:disable WordPress.Security.NonceVerification.Recommended
-if (isset($_POST['action']) && $_POST['action'] === 'save_bg_loans_settings') {
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- POST actions are nonce-verified inside the condition.
+$bg_loans_settings_action = isset($_POST['action']) ? sanitize_text_field(wp_unslash($_POST['action'])) : '';
+if ($bg_loans_settings_action === 'save_bg_loans_settings') {
     if (!isset($_POST['bg_loans_settings_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['bg_loans_settings_nonce'])), 'save_bg_loans_settings_action')) {
         wp_die(esc_html__('Permission denied.', 'boardgame-loans'));
     }
 
     update_option('bg_loans_form_mode', isset($_POST['form_mode']) ? sanitize_text_field(wp_unslash($_POST['form_mode'])) : 'simple');
-    update_option('bg_loans_default_orderby', isset($_POST['default_orderby']) ? sanitize_text_field(wp_unslash($_POST['default_orderby'])) : 'status');
-    update_option('bg_loans_default_order', isset($_POST['default_order']) ? sanitize_text_field(wp_unslash($_POST['default_order'])) : 'DESC');
+
+    // Allowlist validation at write-time: prevents storing invalid column/direction values
+    // that could later be interpolated into ORDER BY clauses (defense-in-depth).
+    $bg_loans_allowed_save_orderby = ['id', 'loan_date', 'due_date', 'return_date', 'status'];
+    $bg_loans_raw_save_orderby     = isset($_POST['default_orderby']) ? strtolower(sanitize_text_field(wp_unslash($_POST['default_orderby']))) : 'status';
+    update_option('bg_loans_default_orderby', in_array($bg_loans_raw_save_orderby, $bg_loans_allowed_save_orderby, true) ? $bg_loans_raw_save_orderby : 'status');
+
+    $bg_loans_raw_save_order = isset($_POST['default_order']) ? strtoupper(sanitize_text_field(wp_unslash($_POST['default_order']))) : 'DESC';
+    update_option('bg_loans_default_order', $bg_loans_raw_save_order === 'ASC' ? 'ASC' : 'DESC');
     update_option('bg_loans_date_format', isset($_POST['date_format']) ? sanitize_text_field(wp_unslash($_POST['date_format'])) : 'eu');
     
     if (isset($_POST['tablepress_id'])) {

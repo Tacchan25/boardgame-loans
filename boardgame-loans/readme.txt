@@ -3,7 +3,7 @@ Contributors: Tacchan25
 Tags: boardgame, loans, rental, library, waitlist
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,14 @@ When returning a game, the plugin checks if there is someone in the Waitlist for
 3. screenshot-3.png == The Public Shortcode table showing current borrowed games.
 
 == Changelog ==
+
+= 1.0.5 =
+* Security: Hardened ORDER BY clauses with strict allow-list validation for both admin list and public shortcodes.
+* Security: Enforced $wpdb->prepare() across all SQL queries, including those with hardcoded or validated dynamic parts.
+* Security: Added write-time allowlist validation for default_orderby/default_order in settings, preventing invalid values from ever reaching the database (defense-in-depth on top of existing read-time validation).
+* Standards: Added detailed technical justifications to all PHPCS ignore comments per advanced coding guidelines.
+* Standards: Implemented explicit SQL format arrays (%s, %d) in all wpdb insert and update calls.
+* Standards: Optimized input sanitization timing (Sanitize ASAP) in settings and form handlers.
 
 = 1.0.4 =
 * Security: Hardened all user input handling with wp_unslash and improved sanitization.

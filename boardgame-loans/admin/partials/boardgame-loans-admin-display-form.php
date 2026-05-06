@@ -22,7 +22,7 @@ $bg_loans_msg_code   = isset($_GET['message']) ? sanitize_text_field(wp_unslash(
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 if ($bg_loans_id_to_load > 0) {
-    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is internal and safe, ID is prepared.
     $bg_loans_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$bg_loans_db_table} WHERE id = %d", $bg_loans_id_to_load));
 
     if ($bg_loans_op === 'copy_loan') {

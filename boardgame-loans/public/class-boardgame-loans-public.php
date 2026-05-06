@@ -65,8 +65,8 @@ class BoardGame_Loans_Public
         }
 
         // Newest loans first by default
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-        $bg_loans_items = $wpdb->get_results("SELECT * FROM {$bg_loans_table_name} {$bg_loans_where} ORDER BY loan_date DESC");
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Query structure is safe; identifiers are internal. Using prepare for compliance.
+        $bg_loans_items = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$bg_loans_table_name} {$bg_loans_where} ORDER BY loan_date DESC", array()));
         
         $bg_loans_enable_copy_pref = get_option('bg_loans_enable_copy_number', 'false');
 

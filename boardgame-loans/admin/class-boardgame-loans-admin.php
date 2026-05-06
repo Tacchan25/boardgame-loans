@@ -49,7 +49,7 @@ class BoardGame_Loans_Admin
         ));
 
         // JS: Settings (Tabs logic)
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET parameter for page check is idempotent.
         if (isset($_GET['page']) && sanitize_text_field(wp_unslash($_GET['page'])) === 'boardgame-loans-settings') {
             wp_enqueue_script('boardgame-loans-settings', plugin_dir_url(dirname(__FILE__)) . 'admin/js/boardgame-loans-settings.js', array(), '1.0.4', true);
         }
@@ -68,7 +68,7 @@ class BoardGame_Loans_Admin
         if (isset($_GET['action']) && $_GET['action'] === 'delete_loan' && isset($_GET['loan_id'])) {
             $get_loan_id = intval(wp_unslash($_GET['loan_id']));
             check_admin_referer('delete_loan_' . $get_loan_id);
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name is internal and safe.
             $wpdb->delete($table_name, array('id' => $get_loan_id));
             wp_safe_redirect(admin_url('admin.php?page=boardgame-loans&message=deleted'));
             exit;
@@ -79,10 +79,10 @@ class BoardGame_Loans_Admin
             $get_loan_id = intval(wp_unslash($_GET['loan_id']));
             check_admin_referer('close_loan_' . $get_loan_id);
             
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is internal and safe, ID is prepared.
             $closed_loan = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$table_name} WHERE id = %d", $get_loan_id));
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name is internal and safe.
             $wpdb->update(
                 $table_name,
                 array('status' => 'closed', 'return_date' => gmdate('Y-m-d H:i:s')),
@@ -97,17 +97,17 @@ class BoardGame_Loans_Admin
                 if ($enable_waitlist === 'true') {
                     $waitlist_unique = get_option('bg_loans_waitlist_unique', 'title_copy');
                     if ($waitlist_unique === 'internal_code' && !empty($closed_loan->internal_code)) {
-                        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+                        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is internal and safe, parameters are prepared.
                         $waitlisted = $wpdb->get_row($wpdb->prepare("SELECT id, borrower_name FROM {$table_name} WHERE status = 'waitlist' AND internal_code = %s ORDER BY loan_date ASC LIMIT 1", $closed_loan->internal_code));
                     } else {
-                        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+                        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is internal and safe, parameters are prepared.
                         $waitlisted = $wpdb->get_row($wpdb->prepare("SELECT id, borrower_name FROM {$table_name} WHERE status = 'waitlist' AND game_title = %s AND copy_number = %d ORDER BY loan_date ASC LIMIT 1", $closed_loan->game_title, $closed_loan->copy_number));
                     }
 
                     if ($waitlisted) {
                         $expire_date = gmdate('Y-m-d H:i:s', strtotime("+3 days"));
-                        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                        $wpdb->update($table_name, array('status' => 'available', 'due_date' => $expire_date), array('id' => $waitlisted->id));
+                        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name is internal and safe.
+                        $wpdb->update($table_name, array('status' => 'available', 'due_date' => $expire_date), array('id' => $waitlisted->id), array('%s', '%s'), array('%d'));
                         wp_safe_redirect(admin_url('admin.php?page=boardgame-loans&message=waitlist_triggered&borrower=' . urlencode($waitlisted->borrower_name)));
                         exit;
                     }
@@ -123,7 +123,7 @@ class BoardGame_Loans_Admin
             $get_loan_id = intval(wp_unslash($_GET['loan_id']));
             check_admin_referer('extend_loan_' . $get_loan_id);
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is internal and safe, ID is prepared.
             $loan = $wpdb->get_row($wpdb->prepare("SELECT due_date FROM {$table_name} WHERE id = %d", $get_loan_id));
             if ($loan) {
                 $base_timestamp = !empty($loan->due_date) ? strtotime($loan->due_date) : time();
@@ -135,7 +135,7 @@ class BoardGame_Loans_Admin
                 $extend_days_setting = intval(get_option('bg_loans_extend_days', 7));
                 $new_due_date = gmdate('Y-m-d', strtotime("+$extend_days_setting days", $base_timestamp));
                 
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name is internal and safe.
                 $wpdb->update(
                     $table_name,
                     array('due_date' => $new_due_date),
@@ -157,7 +157,7 @@ class BoardGame_Loans_Admin
             $loan_duration = intval(get_option('bg_loans_default_duration', 7));
             $new_due_date = gmdate('Y-m-d H:i:s', strtotime("+$loan_duration days"));
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name is internal and safe.
             $wpdb->update(
                 $table_name,
                 array('status' => 'open', 'loan_date' => current_time('mysql'), 'due_date' => $new_due_date),
@@ -205,10 +205,10 @@ class BoardGame_Loans_Admin
                 $is_mod = !empty($_POST['loan_id']) ? intval($_POST['loan_id']) : 0;
                 
                 if ($waitlist_unique === 'internal_code' && !empty($data['internal_code'])) {
-                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is internal and safe, parameters are prepared.
                     $conflict = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$table_name} WHERE status = 'open' AND internal_code = %s AND id != %d", $data['internal_code'], $is_mod));
                 } else {
-                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Table name is internal and safe, parameters are prepared.
                     $conflict = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$table_name} WHERE status = 'open' AND game_title = %s AND copy_number = %d AND id != %d", $data['game_title'], $data['copy_number'], $is_mod));
                 }
                 
@@ -217,17 +217,18 @@ class BoardGame_Loans_Admin
                 }
             }
 
+            $bg_loans_formats = array('%s', '%s', '%s', '%s', '%d', '%s', '%s', '%d', '%s', '%s', '%s', '%s');
             if (!empty($_POST['loan_id'])) {
                 // Modifica
                 $loan_id = intval(wp_unslash($_POST['loan_id']));
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $wpdb->update($table_name, $data, array('id' => $loan_id));
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table name is internal and safe.
+                $wpdb->update($table_name, $data, array('id' => $loan_id), $bg_loans_formats, array('%d'));
                 $msg = 'updated';
             }
             else {
                 // Inserimento
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-                $wpdb->insert($table_name, $data);
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Table name is internal and safe.
+                $wpdb->insert($table_name, $data, $bg_loans_formats);
                 $loan_id = $wpdb->insert_id;
                 $msg = 'success';
             }
